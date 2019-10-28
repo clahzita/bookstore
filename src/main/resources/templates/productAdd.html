@@ -13,22 +13,64 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<form method="post">
-		<div>
-			<label for="title">Titulo</label> 
-			<input type="text" name="title"	id="title" />
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<strong>Cadastro de Produtos</strong>
 		</div>
-		<div>
-			<label for="description">Descrição</label>
-			<textarea rows="10" cols="20" name="description" id="description"></textarea>
+		<div class="panel-body">
+			<form class="form-horizontal" th:object="${product}" th:action="@{/save}" method="POST" style="margin: 10px">
+				<div class="form-group">
+ 					<fieldset>
+						<div class="form-group row">
+							<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+								<div th:each="detailedError : ${#fields.detailedErrors()}">
+									<span th:text="${detailedError.message}"></span>
+								</div>
+							</div>
+						</div> 					
+						<div class="form-group row">
+						    <div class="col-md-1">
+						        <input type="text" class="form-control input-sm" id="id" th:field="*{id}" readOnly="readonly"/>
+						    </div>
+						 </div>
+						<div class="form-group row">                                                          
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('author')}? 'has-error'">
+							    <label>Author</label>
+							    <input type="text" class="form-control input-sm" th:field="*{author}" autofocus="autofocus" placeholder="Enter the book author" maxlength="150"/>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('title')}? 'has-error'">
+								<label>Title</label> 
+								<input type="text" class="form-control input-sm" th:field="*{title}" maxlength="150" placeholder="Enter the title"/>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-md-2" th:classappend="${#fields.hasErrors('data')}? 'has-error'">
+								<label>Publication Date</label> 
+								<input type="date" class="form-control input-sm" th:field="*{data}"/>
+							</div>
+						</div>						
+						<div class="form-group row">
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('description')}? 'has-error'">
+								<label>Description</label>
+								<textarea class="form-control input-sm" th:field="*{description}" cols="5" rows="5" placeholder="Enter the book description" maxlength="255"></textarea>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-md-4" th:classappend="${#fields.hasErrors('pages')}? 'has-error'">
+								<label>Pages</label>
+								<input type="text" class="form-control input-sm" th:field="*{pages}" placeholder="Enter the number of pages"/>
+							</div>
+						</div>								
+					</fieldset>
+				</div>
+				<div class="form-group row">
+					<button type="submit" class="btn btn-sm btn-primary">Save</button>
+					<a th:href="@{/}" class="btn btn-sm btn-default">Cancel</a>
+				</div>
+			</form>
 		</div>
-		<div>
-			<label for="pages">Número de paginas</label>
-			<input type="text" name="pages" id="pages" />
-		</div>
-		<div>
-			<input type="submit" value="Enviar">
-		</div>
-	</form>
+	</div>
 </body>
 </html>

@@ -1,37 +1,35 @@
 package com.bookstore.codehome.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bookstore.codehome.models.Product;
+import com.bookstore.codehome.repositories.ProductRepository;
 
 @Service
 public class ProductService {
 
-	private List<Product>  repository = new ArrayList<>();
-	
+	@Autowired
+	private ProductRepository repository;
+
 	public List<Product> findAll() {
-		
-		return repository;
+
+		return repository.findAll();
 	}
-	
+
 	public Product findOne(Long id) {
-		int idInt = Integer.parseInt(id.toString());
-		return repository.get(idInt);
+		return repository.findById(id).get();
 	}
-	
+
 	public Product save(Product product) {
-		//return repository.saveAndFlush(product);
-		repository.add(product);
-		return  product;
+		return repository.saveAndFlush(product);
+
 	}
-	
+
 	public void delete(Long id) {
-		int idInt = Integer.parseInt(id.toString());
-		//repository.delete(id);
-		repository.remove(idInt);
+		repository.deleteById(id);
 	}
-	
+
 }
