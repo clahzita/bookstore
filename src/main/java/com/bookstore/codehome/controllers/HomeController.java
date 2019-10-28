@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomeController {
 	
-	@RequestMapping("/")
+	@RequestMapping("/home")
 	public void index() {
 		System.out.println("Carregando produtos");
 	}

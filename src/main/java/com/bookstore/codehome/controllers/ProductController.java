@@ -21,13 +21,13 @@ import com.bookstore.codehome.service.ProductService;
  * @author clarissa
  *
  */
-@Controller("/products")
+@Controller
 public class ProductController {
 
 	@Autowired
 	private ProductService service;
 	
-	@GetMapping("/")
+	@GetMapping("/product")
 	public ModelAndView findAll() {
 		
 		ModelAndView mv = new ModelAndView("/product");
