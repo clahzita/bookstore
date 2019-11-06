@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bookstore.codehome.models.BookType;
 import com.bookstore.codehome.models.Product;
 import com.bookstore.codehome.service.ProductService;
 
@@ -36,22 +37,23 @@ public class ProductController {
 		return mv;
 	}
 	
-	@GetMapping("/add")
+	@GetMapping("/product/form")
 	public ModelAndView add(Product product) {
 		
-		ModelAndView mv = new ModelAndView("/productAdd");
+		ModelAndView mv = new ModelAndView("/product-form");
 		mv.addObject("product", product);
+		mv.addObject("types",BookType.values());
 		
 		return mv;
 	}
 	
-	@GetMapping("/edit/{id}")
+	@GetMapping("/product/edit/{id}")
 	public ModelAndView edit(@PathVariable("id") Long id) {
 		
 		return add(service.findOne(id));
 	}
 	
-	@GetMapping("/delete/{id}")
+	@GetMapping("/product/delete/{id}")
 	public ModelAndView delete(@PathVariable("id") Long id) {
 		
 		service.delete(id);
@@ -59,7 +61,7 @@ public class ProductController {
 		return findAll();
 	}
 
-	@PostMapping("/save")
+	@PostMapping("/product/save")
 	public ModelAndView save(@Valid Product product, BindingResult result) {
 		
 		if(result.hasErrors()) {

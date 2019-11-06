@@ -4,13 +4,17 @@
 package com.bookstore.codehome.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -43,6 +47,7 @@ public class Product implements Serializable {
 	
 	@Column(nullable = false, length = 255)
 	@NotBlank(message = "Description is a required information.")
+	@Lob
 	private String description;
 	
 	private Integer pages;
@@ -52,6 +57,9 @@ public class Product implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull(message = "Publication Date is a required information.")
 	private Date publicationDate;
+	
+	@ElementCollection
+	private List<Price> prices = new ArrayList<>();
 
 	public Product() {}
 			
@@ -115,8 +123,14 @@ public class Product implements Serializable {
 	public void setPublicationDate(Date publicationDate) {
 		this.publicationDate = publicationDate;
 	}
+
+	public List<Price> getPrices() {
+		return prices;
+	}
+
+	public void setPrices(List<Price> prices) {
+		this.prices = prices;
+	}
 	
-	
-	
-	
+		
 }
